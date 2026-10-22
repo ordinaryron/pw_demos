@@ -1,0 +1,21 @@
+[project]
+name = "pw-demos"
+version = "0.1.0"
+description = "Ron's test files for building / showing off Playwright skills."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "playwright>=1.64.1",
+    "pytest>=9.1.1",
+    "pytest-playwright>=0.10.0",
+]
+
+[project.scripts]
+pw-demos = "pw_demos:main"
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+addopts = "-vvv -s --base-url https://practice.expandtesting.com"
