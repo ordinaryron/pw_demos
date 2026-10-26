@@ -34,6 +34,11 @@ class LoginPage:
         self.input_password.fill(password)
         self.login_button.click()
 
+    def login_arbitrary_credentials(self, a_username: str, a_password: str):
+         self.input_username.fill(a_username)
+         self.input_password.fill(a_password)
+         self.login_button.click()
+
     def login_bad_username(self):
         username = "bad_username"
         password = os.getenv("TEST_PASSWORD")
