@@ -5,7 +5,7 @@ import re, time
 # Visits https://practice.expandtesting.com/register and tests registration functionality.
 
 meaningful_text = "Test Register page for Automation Testing Practice"
-test_username = "ron-887"
+test_username = "ron-886"
 test_password = "test_password"
 
 def test_register(page: Page):

@@ -1,6 +1,5 @@
 from playwright.sync_api import Page, sync_playwright, expect
 from pages import InputsPage
-import pytest
 
 # Visits https://practice.expandtesting.com/inputs and tests the input fields.
 
