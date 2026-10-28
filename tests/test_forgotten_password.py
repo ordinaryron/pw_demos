@@ -6,7 +6,7 @@ from pages import ForgotPasswordPage, PasswordResetPage
 meaningful_text = "Dummy Forgot Password form page for Automation Testing Practice"
 meaningful_text_2 = "Password reset page for Automation Testing Practice"
 
-def test_inputs(page: Page):
+def test_inputs(page: Page, validate_invalid_emails):
     forgotten_password_page = ForgotPasswordPage(page)
     password_reset_page = PasswordResetPage(page)
     
@@ -31,9 +31,5 @@ def test_inputs(page: Page):
     expect(password_reset_page.banner).to_have_text("An e-mail has been sent to you which explains how to reset your password.")
 
     # A couple negative scenarios we can check. There isn't much input validation, but it does check to see if one and only @ is present in the email address, so we'll verify that.
-    bad_addresses = ["noatsymbol", "too@many@at@symbols"]
-    for bad_address in bad_addresses:
-        forgotten_password_page.navigate()
-        forgotten_password_page.email_input.fill(bad_address)
-        forgotten_password_page.email_button.click()
-        expect(forgotten_password_page.error_text).to_be_visible()
+    forgotten_password_page.navigate()
+    validate_invalid_emails(email_field=forgotten_password_page.email_input, submit_button=forgotten_password_page.email_button, error_message=forgotten_password_page.error_text)
