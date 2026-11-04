@@ -7,5 +7,6 @@ from .password_reset_page import PasswordResetPage
 from .otp_page import OneTimePasswordPage
 from .otp_verification_page import OneTimePasswordVerificationPage
 from .dynamic_table_page import DynamicTablePage
+from .paginated_table_page import PaginatedTablePage
 
-__all__ = ["InputsPage", "LoginPage", "SecurePage", "RegisterPage", "ForgotPasswordPage", "PasswordResetPage", "OneTimePasswordPage", "OneTimePasswordVerificationPage", "DynamicTablePage"]
+__all__ = ["InputsPage", "LoginPage", "SecurePage", "RegisterPage", "ForgotPasswordPage", "PasswordResetPage", "OneTimePasswordPage", "OneTimePasswordVerificationPage", "DynamicTablePage", "PaginatedTablePage"]
