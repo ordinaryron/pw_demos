@@ -14,6 +14,8 @@ class PaginatedTablePage:
         self.previous_button = page.locator("#example_previous")
         self.next_button = page.locator("a[data-dt-idx='next']")
         self.disabled_next_button = page.locator("[role='link'][aria-disabled='true']")
+        self.search_input = page.get_by_label("Search")
+        self.table_rows = page.locator("#example tbody tr")
 
     def navigate(self) -> Response:
         return self.page.goto("/dynamic-pagination-table")
@@ -37,3 +39,20 @@ class PaginatedTablePage:
             fixed_json_string = re.sub(r'([\w_]+)\s*:', r'"\1":', raw_json_string)
             return json.loads(fixed_json_string)
         raise ValueError("Found the script block but could not parse the 'sheetData' array")
+
+    def execute_search(self, search_term) -> list[str]:
+        self.search_input.fill(search_term)
+        rows = self.table_rows.all_inner_texts()
+        all_rows = []
+        all_rows += rows
+        aria_is_disabled = self.next_button.get_attribute("aria-disabled") == "true"
+        if aria_is_disabled:
+            pass
+        else:
+            self.next_button.click()
+            rows = self.table_rows.all_inner_texts()
+            all_rows += rows
+        if any("No matching records found" in row for row in all_rows):
+            return []
+        else:
+            return all_rows

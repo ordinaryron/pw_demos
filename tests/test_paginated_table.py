@@ -1,6 +1,6 @@
 from playwright.sync_api import Page, sync_playwright, expect
 from pages import PaginatedTablePage
-import time
+import pytest, time
 
 meaningful_text = "Dynamic pagination Table page for Automation Testing Practice"
 
@@ -21,6 +21,7 @@ def test_paginated_table(page: Page):
     expect(paginated_table_page.previous_button).to_be_visible()
     expect(paginated_table_page.next_button).to_be_visible()
     expect(paginated_table_page.disabled_next_button).not_to_be_visible()
+    expect(paginated_table_page.search_input).to_be_visible()
     assert paginated_table_page.page_size_dropdown.input_value() == "3"
 
     # For good measure, we'll make sure "Previous" is disabled by default and "Next" is enabled by default
@@ -77,3 +78,26 @@ def test_paginated_table(page: Page):
                     assert student["home_State"] == student_row_data[3]
                     assert student["major"] == student_row_data[4]
                     assert student["extracurricular_Activity"] == student_row_data[5]
+
+# Testing search capability. We'll give the search some sample data (including negatives) and make sure the criteria is found, or not found as appropriate.
+# We'll represent the "correct" answers as a list of tuples.
+search_test_cases = [
+    ("Johnson", 1),
+    ("Female", 5), # We'll have to click "Next" to ensure we have all the rows with this one.
+    ("Skywalker", 0), # No one in the list is named Skywalker. Tragic!
+    ("Freshman", 2),
+    ("Ohio", 1),
+]
+@pytest.mark.parametrize("search_term, expected_count", search_test_cases)
+def test_paginated_table_search(page: Page, search_term, expected_count):
+    paginated_table_page = PaginatedTablePage(page)
+        
+    response = paginated_table_page.navigate()
+    assert response.ok
+
+    # Make sure the search field is visible.
+    expect(paginated_table_page.search_input).to_be_visible()
+
+    # Search using the function built on the POM page.
+    search_results = paginated_table_page.execute_search(search_term)
+    assert len(search_results) == expected_count
