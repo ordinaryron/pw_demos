@@ -10,5 +10,6 @@ from .dynamic_table_page import DynamicTablePage
 from .paginated_table_page import PaginatedTablePage
 from .locators_page import LocatorsPage
 from .browser_information_page import BrowserInformationPage
+from .radio_buttons_page import RadioButtonsPage
 
-__all__ = ["InputsPage", "LoginPage", "SecurePage", "RegisterPage", "ForgotPasswordPage", "PasswordResetPage", "OneTimePasswordPage", "OneTimePasswordVerificationPage", "DynamicTablePage", "PaginatedTablePage", "LocatorsPage", "BrowserInformationPage"]
+__all__ = ["InputsPage", "LoginPage", "SecurePage", "RegisterPage", "ForgotPasswordPage", "PasswordResetPage", "OneTimePasswordPage", "OneTimePasswordVerificationPage", "DynamicTablePage", "PaginatedTablePage", "LocatorsPage", "BrowserInformationPage", "RadioButtonsPage"]
